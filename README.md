@@ -1,8 +1,8 @@
 # Slurm on CentOS 7 Docker Image
 
-[![Build Status](https://travis-ci.com/NOAA-GSL/docker-centos7-slurm.svg?branch=develop)](https://travis-ci.com/NOAA-GSL/docker-centos7-slurm)
+[![Build Status](https://travis-ci.com/NOAA-GSL/centos7-slurm.svg?branch=develop)](https://travis-ci.com/NOAA-GSL/centos7-slurm)
 
-This is an all-in-one [Slurm](https://slurm.schedmd.com/) installation (forked from [giovtorres/docker-centos7-slurm](https://github.com/giovtorres/docker-centos7-slurm)).  This
+This is an all-in-one [Slurm](https://slurm.schedmd.com/) installation (originally forked from [giovtorres/docker-centos7-slurm](https://github.com/giovtorres/docker-centos7-slurm)).  This
 container runs the following processes:
 
 * slurmd (The compute node daemon for Slurm)
@@ -12,18 +12,22 @@ container runs the following processes:
 * mariadb (MySQL compatible database)
 * supervisord (A process control system)
 
-It also has Python 3.7 installed, including the corresponding -devel and -pip packages.
-It also has Java 1.8.0 OpenJDK and Sbt 1.3.13.
+It also has the following packages installed
+
+* Python 3.7
+* Java 11
+* Scala
+* Sbt
 
 ## Usage
 
 There is currently only one
-[tag](https://hub.docker.com/r/noaagsl/docker-centos7-slurm/tags/)
+[tag](https://hub.docker.com/r/noaagsl/centos7-slurm/tags/)
 available, but more may follow.  To use the latest available image, run:
 
 ```shell
-docker pull noaagsl/docker-centos7-slurm:latest
-docker run -it -h ernie noaagsl/docker-centos7-slurm:latest
+docker pull noaagsl/centos7-slurm:latest
+docker run -it -h ernie noaagsl/centos7-slurm:latest
 ```
 
 The above command will drop you into a bash shell inside the container. Tini
@@ -69,7 +73,7 @@ PartitionName=normal
 You can also run the container in detached mode:
 
 ```shell
-docker run -d -t -h ernie --name slurm noaagsl/docker-centos7-slurm:latest
+docker run -d -t -h ernie --name slurm noaagsl/centos7-slurm:latest
 ```
 
 The above command will start the Slurm cluster in the container and you can then interact with it:
@@ -96,8 +100,8 @@ $ docker exec chiltepin-slurm squeue
 ## Building
 
 ```shell
-git clone https://github.com/NOAA-GSL/docker-centos7-slurm.git
-docker build -t docker-centos7-slurm .
+git clone https://github.com/NOAA-GSL/centos7-slurm.git
+docker build -t centos7-slurm .
 ```
 
 ### Using Build Args
@@ -119,12 +123,12 @@ docker-compose up -d
 To execute commands in the container, use `docker exec`:
 
 ```shell
-docker exec dockercentos7slurm_slurm_1 sinfo
+docker exec centos7-slurm sinfo
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 normal*      up 5-00:00:00      5   idle c[1-5]
 debug        up 5-00:00:00      5   idle c[6-10]
 
-docker exec dockercentos7slurm_slurm_1 sbatch --wrap="sleep 10"
+docker exec centos7-slurm sbatch --wrap="sleep 10"
 Submitted batch job 27
 
 docker exec dockercentos7slurm_slurm_1 squeue
@@ -135,7 +139,7 @@ docker exec dockercentos7slurm_slurm_1 squeue
 To attach to the bash shell inside the running container, run:
 
 ```shell
-docker attach dockercentos7slurm_slurm_1
+docker attach centos7-slurm
 ```
 
 Press `Ctrl-p,Ctrl-q` to detach from the container without killing the bash
