@@ -1,6 +1,7 @@
 # Slurm on CentOS 7 Docker Image
 
-[![Build Status](https://travis-ci.com/NOAA-GSL/centos7-slurm.svg?branch=develop)](https://travis-ci.com/NOAA-GSL/centos7-slurm)
+![CI for CentOS7-Slurm](https://github.com/NOAA-GSL/centos7-slurm/workflows/CI%20for%20CentOS7-Slurm/badge.svg?branch=develop)
+
 
 This is an all-in-one [Slurm](https://slurm.schedmd.com/) installation (originally forked from [giovtorres/docker-centos7-slurm](https://github.com/giovtorres/docker-centos7-slurm)).  This
 container runs the following processes:
