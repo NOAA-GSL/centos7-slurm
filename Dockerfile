@@ -86,8 +86,10 @@ RUN set -ex \
         wxGTK3-devel \
         xz-devel \
         zlib-devel \
-    && wget http://dl.bintray.com/sbt/rpm/sbt-$SBT_VERSION.rpm \
-    && yum install -y sbt-$SBT_VERSION.rpm \
+    && rm -f /etc/yum.repos.d/bintray-rpm.repo \
+    && curl -L https://www.scala-sbt.org/sbt-rpm.repo > sbt-rpm.repo \
+    && mv sbt-rpm.repo /etc/yum.repos.d/ \
+    && yum install -y sbt \
     && wget http://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.rpm \
     && yum install -y scala-$SCALA_VERSION.rpm \
     && yum clean all \
@@ -102,7 +104,7 @@ RUN set -ex \
     && rm -f /tmp/install-python.sh
 
 # Fetch sbt artifacts
-RUN sbt about
+RUN cd /tmp && sbt about
 
 # Compile, build and install Slurm from Git source
 ARG SLURM_TAG=slurm-$SLURM_VERSION
